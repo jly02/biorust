@@ -14,29 +14,63 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'sans-serif' }}>
-        <header style={{ padding: '1rem 2rem', backgroundColor: '#1E3A8A', color: 'white' }}>
-          <h1>Bioinformatics App</h1>
+      <body style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        fontFamily: "'Inter', sans-serif",
+        backgroundColor: '#f5f5f5',
+        color: '#111827',
+        margin: 0
+      }}>
+        <header style={{
+          padding: '1.5rem 2rem',
+          backgroundColor: '#2563EB',
+          color: 'white',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+          <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 600 }}>Bioinformatics App</h1>
         </header>
 
         <div style={{ display: 'flex', flex: 1 }}>
-          {/* Sidebar / Function menu */}
-          <nav style={{ width: '200px', padding: '1rem', borderRight: '1px solid #ddd', backgroundColor: '#f9f9f9' }}>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ margin: '1rem 0' }}><a href="#" style={{ textDecoration: 'none', color: '#1E3A8A' }}>Sequence Analysis</a></li>
-              <li style={{ margin: '1rem 0' }}><a href="#" style={{ textDecoration: 'none', color: '#1E3A8A' }}>Alignment Tool</a></li>
-              <li style={{ margin: '1rem 0' }}><a href="#" style={{ textDecoration: 'none', color: '#1E3A8A' }}>Visualization</a></li>
-              <li style={{ margin: '1rem 0' }}><a href="#" style={{ textDecoration: 'none', color: '#1E3A8A' }}>Data Import</a></li>
+          <nav style={{
+            width: '220px',
+            padding: '2rem 1.5rem',
+            borderRight: '1px solid #e5e7eb',
+            backgroundColor: 'white'
+          }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {['Sequence Analysis', 'Alignment Tool', 'Visualization', 'Data Import'].map((item) => (
+                <li key={item} style={{ margin: '1.25rem 0' }}>
+                  <a href="#" style={{
+                    textDecoration: 'none',
+                    color: '#2563EB',
+                    fontWeight: 500,
+                    fontSize: '1rem'
+                  }}>{item}</a>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          {/* Main content area */}
-          <main style={{ flex: 1, padding: '2rem' }}>
+          <main style={{
+            flex: 1,
+            padding: '2.5rem',
+            backgroundColor: '#f9fafb',
+            overflowY: 'auto'
+          }}>
             {children}
           </main>
         </div>
 
-        <footer style={{ padding: '1rem 2rem', backgroundColor: '#f1f1f1', textAlign: 'center' }}>
+        <footer style={{
+          padding: '1rem 2rem',
+          backgroundColor: 'white',
+          textAlign: 'center',
+          borderTop: '1px solid #e5e7eb',
+          fontSize: '0.875rem',
+          color: '#6b7280'
+        }}>
           &copy; {new Date().getFullYear()} Bioinformatics App
         </footer>
       </body>
