@@ -1,81 +1,95 @@
-// app/layout.tsx
 import React, { ReactNode } from 'react';
 import './globals.css';
+import { Poppins } from 'next/font/google';
+import Link from 'next/link';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
 
 export const metadata = {
-  title: 'Bioinformatics App',
-  description: 'Analyze sequences and explore biological data',
+  title: 'Bioinformatics Hub',
+  description: 'Explore tools and workflows in modern bioinformatics.',
 };
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export default function Layout({ children }: LayoutProps) {
   return (
-    <html lang="en">
-      <body style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        fontFamily: "'Inter', sans-serif",
-        backgroundColor: '#f5f5f5',
-        color: '#111827',
-        margin: 0
-      }}>
-        <header style={{
-          padding: '1.5rem 2rem',
-          backgroundColor: '#2563EB',
-          color: 'white',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 600 }}>Bioinformatics App</h1>
-        </header>
-
-        <div style={{ display: 'flex', flex: 1 }}>
-          <nav style={{
-            width: '220px',
-            padding: '2rem 1.5rem',
-            borderRight: '1px solid #e5e7eb',
-            backgroundColor: 'white'
-          }}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {['Sequence Analysis', 'Alignment Tool', 'Visualization', 'Data Import'].map((item) => (
-                <li key={item} style={{ margin: '1.25rem 0' }}>
-                  <a href="#" style={{
-                    textDecoration: 'none',
-                    color: '#2563EB',
-                    fontWeight: 500,
-                    fontSize: '1rem'
-                  }}>{item}</a>
-                </li>
-              ))}
+    <html lang="en" className={poppins.className}>
+      <body
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          backgroundColor: '#111827',
+          color: '#f9fafb',
+          margin: 0,
+        }}
+      >
+        <header
+          style={{
+            backgroundColor: '#1f2937',
+            padding: '1rem 2rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderBottom: '1px solid #374151',
+          }}
+        >
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 600 }}>
+            <Link href="/" style={{ textDecoration: 'none', color: 'white' }}>
+              BioRust
+            </Link>
+          </h1>
+          <nav>
+            <ul
+              style={{
+                display: 'flex',
+                gap: '1.5rem',
+                listStyle: 'none',
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              <li>
+                <Link href="/" style={{ color: '#f9fafb', textDecoration: 'none' }}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools" style={{ color: '#f9fafb', textDecoration: 'none' }}>
+                  Tools
+                </Link>
+              </li>
+              <li>
+                <Link href="/docs" style={{ color: '#f9fafb', textDecoration: 'none' }}>
+                  Documentation
+                </Link>
+              </li>
             </ul>
           </nav>
+        </header>
 
-          <main style={{
-            flex: 1,
-            padding: '2.5rem',
-            backgroundColor: '#f9fafb',
-            overflowY: 'auto'
-          }}>
-            {children}
-          </main>
-        </div>
+        <main style={{ flex: 1 }}>{children}</main>
 
-        <footer style={{
-          padding: '1rem 2rem',
-          backgroundColor: 'white',
-          textAlign: 'center',
-          borderTop: '1px solid #e5e7eb',
-          fontSize: '0.875rem',
-          color: '#6b7280'
-        }}>
-          &copy; {new Date().getFullYear()} Bioinformatics App
+        <footer
+          style={{
+            backgroundColor: '#1f2937',
+            padding: '1rem 2rem',
+            borderTop: '1px solid #374151',
+            fontSize: '0.875rem',
+            color: '#9ca3af',
+            textAlign: 'center',
+          }}
+        >
+          &copy; {new Date().getFullYear()} BioRust. All rights reserved.
         </footer>
       </body>
     </html>
   );
-};
-
-export default Layout;
+}

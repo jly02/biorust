@@ -1,102 +1,87 @@
-'use client';
+import React from 'react';
 
-import React, { useState } from 'react';
+export default function HomePage() {
+  const workflows = [
+    {
+      title: 'Basic Statistics',
+      description: 'Start your analysis with essential sequence statistics, including length, GC content, and composition.',
+      image: 'dna-sequence-analysis.png', // placeholder image
+    },
+    {
+      title: 'Alignment Tool',
+      description: 'Align DNA, RNA, or protein sequences to reveal conserved regions and mutations.',
+      image: 'Histone_Alignment.png', // placeholder image
+    },
+  ];
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
-
-const HomePage: React.FC = () => {
-  const [input, setInput] = useState('');
-  const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState<{ message: string; description: string; extra: string[] } | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResult(null);
-
-    try {
-      let bodyData: BodyInit;
-
-      // Attach either the file or the text sequence
-      if (file) {
-        bodyData = file;
-      } else if (input.trim()) {
-        bodyData = input.trim()
-      } else {
-        throw new Error('Please provide a sequence or upload a file.');
-      }
-
-      const res = await fetch(`${API_BASE_URL}/parse`, {
-        method: 'POST',
-        body: bodyData,
-      });
-
-      if (!res.ok) {
-        throw new Error(`API error: ${res.status}`);
-      }
-
-      const data = await res.json();
-      setResult({ 
-        message: data.message, 
-        description: data.description, 
-        extra: data.extra 
-      });
-    } catch (err: any) {
-      setError(err.message || 'Unknown error');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const updates = [
+    { title: 'Site is live!', date: '2025-10-11', description: 'Functionality is non-existent... more to come!' },
+  ];
 
   return (
-    <div>
-      <h2>Sequence Parser</h2>
-      <p>Enter a biological sequence or upload a FASTA/FASTQ file to parse it using the Rust backend API.</p>
+    <div style={{ padding: '3rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 700 }}>Welcome to BioRust</h2>
+        <p style={{ fontSize: '1.125rem', color: '#d1d5db', marginTop: '0.75rem' }}>
+          A platform for advanced bioinformatics tools and workflows, built on Rust.
+        </p>
+      </section>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '350px' }}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter sequence..."
-          style={{ padding: '0.5rem' }}
-        />
-
-        <div>
-          <label htmlFor="file-upload" style={{ display: 'block', marginBottom: '0.5rem' }}>
-            Or upload a sequence file:
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            accept=".fasta,.fa,.fastq,.fq,.txt"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          style={{ padding: '0.5rem 1rem', backgroundColor: '#1E3A8A', color: 'white', border: 'none', borderRadius: '4px' }}
+      <section style={{ marginBottom: '3rem' }}>
+        <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1.5rem' }}>Quick Links</h3>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '1.5rem',
+          }}
         >
-          {loading ? 'Submitting...' : 'Submit'}
-        </button>
-      </form>
-
-      {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
-
-      {result && (
-        <div style={{ marginTop: '1rem', border: '1px solid #ddd', padding: '1rem', borderRadius: '4px' }}>
-          <h3>Result</h3>
-          <p><strong>Message:</strong> {result.message}</p>
-          <p><strong>Description:</strong> {result.description}</p>
-          <p><strong>File contents:</strong> {result.extra}</p>
+          {workflows.map((wf) => (
+            <div
+              key={wf.title}
+              style={{
+                backgroundColor: '#1f2937',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+              }}
+            >
+              <img
+                src={wf.image}
+                alt={wf.title}
+                style={{ width: '100%', height: '180px', objectFit: 'cover' }}
+              />
+              <div style={{ padding: '1rem' }}>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{wf.title}</h4>
+                <p style={{ color: '#d1d5db', marginTop: '0.5rem' }}>{wf.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </section>
+
+      <section>
+        <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1.5rem' }}>Recent Updates</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {updates.map((u) => (
+            <div
+              key={u.title}
+              style={{
+                backgroundColor: '#1f2937',
+                padding: '1rem 1.5rem',
+                borderRadius: '6px',
+                border: '1px solid #374151',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                <h4 style={{ fontSize: '1.125rem', fontWeight: 600 }}>{u.title}</h4>
+                <span style={{ fontSize: '0.875rem', color: '#9ca3af' }}>{u.date}</span>
+              </div>
+              <p style={{ color: '#d1d5db' }}>{u.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
-};
-
-export default HomePage;
+}
