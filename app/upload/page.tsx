@@ -1,8 +1,8 @@
 "use client";
 
-import { read } from "fs";
-import { Readex_Pro } from "next/font/google";
 import React, { useState, useEffect } from "react";
+
+const INDEXEDDB_VER = 1;
 
 interface UploadFile {
   file: File;
@@ -33,7 +33,7 @@ export default function UploadPage() {
 
   // Upload file to IndexedDB
   const uploadToIndexedDB = (uploadFile: UploadFile) => {
-    const dbRequest = indexedDB.open("uploads", 1);
+    const dbRequest = indexedDB.open("uploads", INDEXEDDB_VER);
 
     dbRequest.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result;
@@ -42,10 +42,9 @@ export default function UploadPage() {
       }
     };
 
-    dbRequest.onsuccess = () => {
+    dbRequest.onsuccess = (event) => {
       const db = dbRequest.result;
       const transaction = db.transaction("uploads", "readwrite");
-      const store = transaction.objectStore("uploads");
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -63,14 +62,21 @@ export default function UploadPage() {
         };
       };
       reader.readAsText(uploadFile.file);
-
       // reader.readAsArrayBuffer(uploadFile.file); // line does not work?
     };
   };
 
   // Fetch all stored files
   const fetchStoredFiles = () => {
-    const dbRequest = indexedDB.open("uploads", 1);
+    const dbRequest = indexedDB.open("uploads", INDEXEDDB_VER);
+
+    dbRequest.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("uploads")) {
+        db.createObjectStore("uploads", { keyPath: "name" });
+      }
+    };
+
     dbRequest.onsuccess = () => {
       const db = dbRequest.result;
       const transaction = db.transaction("uploads", "readonly");
@@ -83,7 +89,15 @@ export default function UploadPage() {
   };
 
   const viewFile = (name: string) => {
-    const dbRequest = indexedDB.open("uploads", 1);
+    const dbRequest = indexedDB.open("uploads", INDEXEDDB_VER);
+
+    dbRequest.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("uploads")) {
+        db.createObjectStore("uploads", { keyPath: "name" });
+      }
+    };
+
     dbRequest.onsuccess = () => {
       const db = dbRequest.result;
       const transaction = db.transaction("uploads", "readonly");
@@ -119,7 +133,7 @@ export default function UploadPage() {
 
   // Delete stored file
   const deleteStoredFile = (name: string) => {
-    const dbRequest = indexedDB.open("uploads", 1);
+    const dbRequest = indexedDB.open("uploads", INDEXEDDB_VER);
     dbRequest.onsuccess = () => {
       const db = dbRequest.result;
       const transaction = db.transaction("uploads", "readwrite");
@@ -140,7 +154,7 @@ export default function UploadPage() {
         <div className="bg-neutral-800 rounded-2xl shadow-lg p-6 border border-neutral-700">
           <h1 className="text-2xl font-semibold mb-2">Upload Your Dataset</h1>
           <p className="text-sm text-neutral-400 mb-4">
-            Select or drag and drop your files. Supported formats: CSV, XLSX, JSON.
+            Select or drag and drop your files. Supported formats: FASTA, FASTQ.
           </p>
 
           {/* Drop Zone */}
@@ -190,18 +204,20 @@ export default function UploadPage() {
                       ({(file.size / 1024).toFixed(1)} KB)
                     </span>
                   </div>
-                  <button
-                    onClick={() => viewFile(file.name)}
-                    className="text-blue-400 hover:text-blue-300 text-sm mr-2"
-                  >
-                    View
-                  </button>
-                  <button
-                    onClick={() => deleteStoredFile(file.name)}
-                    className="text-red-400 hover:text-red-300 text-sm"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex justify-between items-center gap-5">
+                    <button
+                      onClick={() => viewFile(file.name)}
+                      className="text-blue-400 hover:text-blue-300 text-sm"
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => deleteStoredFile(file.name)}
+                      className="text-red-400 hover:text-red-300 text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
