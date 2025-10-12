@@ -10,7 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: 'Bioinformatics Hub',
+  title: 'BioRust',
   description: 'Explore tools and workflows in modern bioinformatics.',
 };
 
