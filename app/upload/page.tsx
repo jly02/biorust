@@ -108,25 +108,10 @@ export default function UploadPage() {
         const fileData = getReq.result;
         if (!fileData) return;
 
-        const newWindow = window.open("", "_blank");
-        if (!newWindow) return;
-
-        newWindow.document.write(`
-          <html>
-            <head>
-              <title>${fileData.name}</title>
-              <style>
-                body { font-family: sans-serif; background: #1f1f1f; color: #fff; padding: 20px; }
-                pre { white-space: pre-wrap; word-wrap: break-word; }
-              </style>
-            </head>
-            <body>
-              <h1>${fileData.name}</h1>
-              <pre>${fileData.content}</pre>
-            </body>
-          </html>
-        `);
-        newWindow.document.close();
+        const blob = new Blob([fileData.content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        window.open(url, "_blank");
+        setTimeout(() => URL.revokeObjectURL(url), 10000); // revoke after some time, free mem
       };
     };
   };
@@ -152,7 +137,7 @@ export default function UploadPage() {
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header Card */}
         <div className="bg-neutral-800 rounded-2xl shadow-lg p-6 border border-neutral-700">
-          <h1 className="text-2xl font-semibold mb-2">Upload Your Dataset</h1>
+          <h1 className="text-2xl font-semibold mb-2">Upload Your Data</h1>
           <p className="text-sm text-neutral-400 mb-4">
             Select or drag and drop your files. Supported formats: FASTA, FASTQ.
           </p>
