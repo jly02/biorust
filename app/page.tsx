@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function HomePage() {
-  const workflows = [
+  const quickLinks = [
     {
       title: 'Basic Statistics',
       description: 'Start your analysis with essential sequence statistics, including length, GC content, and composition.',
@@ -36,9 +36,9 @@ export default function HomePage() {
             gap: '1.5rem',
           }}
         >
-          {workflows.map((wf) => (
+          {quickLinks.map((ql) => (
             <div
-              key={wf.title}
+              key={ql.title}
               style={{
                 backgroundColor: '#262626',
                 borderRadius: '8px',
@@ -47,13 +47,13 @@ export default function HomePage() {
               }}
             >
               <img
-                src={wf.image}
-                alt={wf.title}
+                src={ql.image}
+                alt={ql.title}
                 style={{ width: '100%', height: '180px', objectFit: 'cover' }}
               />
               <div style={{ padding: '1rem' }}>
-                <h4 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{wf.title}</h4>
-                <p style={{ color: '#d1d5db', marginTop: '0.5rem' }}>{wf.description}</p>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{ql.title}</h4>
+                <p style={{ color: '#d1d5db', marginTop: '0.5rem' }}>{ql.description}</p>
               </div>
             </div>
           ))}
@@ -70,7 +70,7 @@ export default function HomePage() {
                 backgroundColor: '#262626',
                 padding: '1rem 1.5rem',
                 borderRadius: '6px',
-                border: '1px solid #374151',
+                border: '1px solid #424242ff',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
