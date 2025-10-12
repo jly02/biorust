@@ -40,7 +40,7 @@ export default function HomePage() {
             <div
               key={wf.title}
               style={{
-                backgroundColor: '#1f2937',
+                backgroundColor: '#262626',
                 borderRadius: '8px',
                 overflow: 'hidden',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
@@ -67,7 +67,7 @@ export default function HomePage() {
             <div
               key={u.title}
               style={{
-                backgroundColor: '#1f2937',
+                backgroundColor: '#262626',
                 padding: '1rem 1.5rem',
                 borderRadius: '6px',
                 border: '1px solid #374151',

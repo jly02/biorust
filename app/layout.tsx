@@ -26,14 +26,14 @@ export default function Layout({ children }: LayoutProps) {
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
-          backgroundColor: '#111827',
+          backgroundColor: '#313131ff',
           color: '#f9fafb',
           margin: 0,
         }}
       >
         <header
           style={{
-            backgroundColor: '#1f2937',
+            backgroundColor: '#262626',
             padding: '1rem 2rem',
             display: 'flex',
             justifyContent: 'space-between',
@@ -62,6 +62,11 @@ export default function Layout({ children }: LayoutProps) {
                 </Link>
               </li>
               <li>
+                <Link href="/upload" style={{ color: '#f9fafb', textDecoration: 'none' }}>
+                  Upload
+                </Link>
+              </li>
+              <li>
                 <Link href="/tools" style={{ color: '#f9fafb', textDecoration: 'none' }}>
                   Tools
                 </Link>
@@ -79,7 +84,7 @@ export default function Layout({ children }: LayoutProps) {
 
         <footer
           style={{
-            backgroundColor: '#1f2937',
+            backgroundColor: '#262626',
             padding: '1rem 2rem',
             borderTop: '1px solid #374151',
             fontSize: '0.875rem',
