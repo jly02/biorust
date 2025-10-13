@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 
 export default function HomePage() {
@@ -5,7 +7,8 @@ export default function HomePage() {
     {
       title: 'Basic Statistics',
       description: 'Start your analysis with essential sequence statistics, including length, GC content, and composition.',
-      image: 'dna-sequence-analysis.png', // placeholder image
+      image: 'basic_stats.png', // placeholder image
+      link: "/tools/sequence-analyzer"
     },
     {
       title: 'Alignment Tool',
@@ -15,6 +18,7 @@ export default function HomePage() {
   ];
 
   const updates = [
+    { title: 'Sequence analyzer implemented.', date: '2025-10-13', description: 'For now, only covers basic statistics and information about each sequence. File uploads are limited to 4 MB, but will soon be increased.' },
     { title: 'Site is live!', date: '2025-10-11', description: 'Functionality is non-existent... more to come!' },
   ];
 
@@ -49,10 +53,22 @@ export default function HomePage() {
               <img
                 src={ql.image}
                 alt={ql.title}
-                style={{ width: '100%', height: '180px', objectFit: 'cover' }}
+                style={{ width: '100%', height: '180px', objectFit: 'contain', objectPosition: 'left', backgroundColor: '#181818ff' }}
               />
               <div style={{ padding: '1rem' }}>
-                <h4 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{ql.title}</h4>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: 600 }}>
+                  <a
+                    href={ql.link}              // 👈 your target URL
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+                    onMouseOut={(e) => (e.currentTarget.style.textDecoration = 'none')}
+                  >
+                    {ql.title}
+                  </a>
+                </h4>
                 <p style={{ color: '#d1d5db', marginTop: '0.5rem' }}>{ql.description}</p>
               </div>
             </div>
