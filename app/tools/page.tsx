@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function ToolsPage() {
@@ -16,9 +17,12 @@ export default function ToolsPage() {
           <p className="text-sm text-gray-300 flex-1 mb-4">
             Analyze nucleotide or protein sequences for basic statistics and structure.
           </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg w-full transition">
+          <Link
+            href="/tools/sequence-analyzer"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg w-full text-center transition"
+          >
             Launch
-          </button>
+          </Link>
         </div>
 
         {/* Tool Card 2 */}
