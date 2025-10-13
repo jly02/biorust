@@ -139,7 +139,7 @@ export default function UploadPage() {
         <div className="bg-neutral-800 rounded-2xl shadow-lg p-6 border border-neutral-700">
           <h1 className="text-2xl font-semibold mb-2">Upload Your Data</h1>
           <p className="text-sm text-neutral-400 mb-4">
-            Select or drag and drop your files. Supported formats: FASTA, FASTQ.
+            Select or drag and drop your files. Supported formats: FASTA, FASTQ (max 4 MB).
           </p>
 
           {/* Drop Zone */}

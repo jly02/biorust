@@ -105,7 +105,7 @@ export default function SequenceAnalyzerPage() {
         <div className="bg-neutral-800 border border-neutral-700 rounded-2xl shadow-lg p-6 space-y-4">
           <h1 className="text-2xl font-semibold">Sequence Analyzer</h1>
           <p className="text-neutral-400 text-sm">
-            Upload a FASTA file or choose a stored file to compute GC content, base counts, and more.
+            Upload a FASTA file or choose a stored file to compute GC content, base counts, and more (max 4 MB).
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center">
